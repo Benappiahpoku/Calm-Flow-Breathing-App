@@ -1,0 +1,71 @@
+.message-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  /* border-radius: 8px; */
+  color: #333;
+  /* box-shadow: 0px 0px 10px rgba(0,0,0,0.1); */
+}
+
+.message-form input,
+.message-form select {
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 1em;
+}
+
+.message-form label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1em;
+}
+
+.message-form label div {
+  width: 100px;
+}
+
+.message-form label div input {
+  flex-grow: 1;
+  width: 100%;
+  margin-left: 10px;
+}
+
+.days-of-week {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.day-button {
+  padding: 10px;
+  border: none;
+  background-color: #ddd;
+  border-radius: 4px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.day-button.selected {
+  background-color: #007BFF;
+  color: white;
+}
+
+.message-form button[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.message-form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
