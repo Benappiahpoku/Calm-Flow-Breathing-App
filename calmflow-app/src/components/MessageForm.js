@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
   setMessage,
   setTimes,
@@ -19,19 +19,21 @@ function MessageForm({
   setDayEnd,
   setSelectedDays,
 }) {
-  const [message, setMessageLocal] = React.useState("");
-  const [times, setTimesLocal] = React.useState(1);
-  const [dayStart, setDayStartLocal] = React.useState("08:00");
-  const [dayEnd, setDayEndLocal] = React.useState("17:00");
-  const [selectedDays, setSelectedDaysLocal] = React.useState({
-    Sun: false,
-    Mon: true,
-    Tue: true,
-    Wed: true,
-    Thu: true,
-    Fri: true,
-    Sat: false,
-  });
+const currentSettings = useSelector((state) => ({
+  message: state.message,
+  times: state.times,
+  dayStart: state.dayStart,
+  dayEnd: state.dayEnd,
+  selectedDays: state.selectedDays,
+}));
+
+const [message, setMessageLocal] = React.useState(currentSettings.message);
+const [times, setTimesLocal] = React.useState(currentSettings.times);
+const [dayStart, setDayStartLocal] = React.useState(currentSettings.dayStart);
+const [dayEnd, setDayEndLocal] = React.useState(currentSettings.dayEnd);
+const [selectedDays, setSelectedDaysLocal] = React.useState(
+  currentSettings.selectedDays
+);
 
   const handleSubmit = (event) => {
     event.preventDefault();

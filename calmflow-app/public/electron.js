@@ -108,7 +108,9 @@ ipcMain.on(
       let [startHour, startMinute] = dayStart.split(":").map(Number);
       let [endHour, endMinute] = dayEnd.split(":").map(Number);
 
-      let dayLength = endHour * 60 + endMinute - (startHour * 60 + startMinute);
+      let totalMinutes =
+        endHour * 60 + endMinute - (startHour * 60 + startMinute);
+      let intervalLength = totalMinutes / times;
 
       console.log(
         `Scheduling ${times} notifications between ${dayStart} and ${dayEnd}...`
@@ -120,33 +122,43 @@ ipcMain.on(
         if (selectedDays[day]) {
           console.log(`Scheduling notifications for day ${day}...`);
           for (let i = 0; i < times; i++) {
-            let randomTime = Math.floor(Math.random() * dayLength * 60 * 1000); // Random time in milliseconds within the day length
+            let intervalStart = i * intervalLength;
+            let randomMinuteWithinInterval = Math.floor(
+              Math.random() * intervalLength
+            );
+
+            let notificationMinute = intervalStart + randomMinuteWithinInterval;
+            let notificationHour =
+              startHour + Math.floor(notificationMinute / 60);
+            notificationMinute = notificationMinute % 60;
 
             let scheduleTime = new Date();
-            scheduleTime.setHours(startHour, startMinute, 0, 0); // Set the time to the start of the day
+            scheduleTime.setHours(notificationHour, notificationMinute, 0, 0);
 
             if (Number(day) >= today) {
               scheduleTime = new Date(
                 scheduleTime.getTime() +
-                  (Number(day) - today) * 24 * 60 * 60 * 1000 +
-                  randomTime
-              ); // Add the day and random time
+                  (Number(day) - today) * 24 * 60 * 60 * 1000
+              );
             } else {
               scheduleTime = new Date(
                 scheduleTime.getTime() +
-                  (7 - today + Number(day)) * 24 * 60 * 60 * 1000 +
-                  randomTime
-              ); // Add the day and random time
+                  (7 - today + Number(day)) * 24 * 60 * 60 * 1000
+              );
             }
 
             console.log(
               `Scheduling notification for time ${scheduleTime.toString()}...`
             );
 
-            schedule.scheduleJob(
-              scheduleTime,
-              createJob(mainWindow, message, times)
-            );
+            // Create a recurrence rule
+            let rule = new schedule.RecurrenceRule();
+            rule.dayOfWeek = scheduleTime.getDay();
+            rule.hour = scheduleTime.getHours();
+            rule.minute = scheduleTime.getMinutes();
+
+            // Schedule the job with the recurrence rule
+            schedule.scheduleJob(rule, createJob(mainWindow, message, times));
           }
         }
       }

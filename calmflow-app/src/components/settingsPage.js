@@ -1,20 +1,33 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setDayStart, setDayEnd, setSelectedDays } from "./actions";
 import "./settingsPage.css";
 
-function SettingsPage({ setDayStart, setDayEnd, setSelectedDays }) {
-  const [dayStart, setDayStartLocal] = React.useState("08:00");
-  const [dayEnd, setDayEndLocal] = React.useState("17:00");
-  const [selectedDays, setSelectedDaysLocal] = React.useState({
-    Sun: false,
-    Mon: true,
-    Tue: true,
-    Wed: true,
-    Thu: true,
-    Fri: true,
-    Sat: false,
-  });
+function SettingsPage() {
+  const dispatch = useDispatch();
+  const currentSettings = useSelector((state) => ({
+    dayStart: state.dayStart,
+    dayEnd: state.dayEnd,
+    selectedDays: state.selectedDays,
+  }));
+
+  const [dayStart, setDayStartLocal] = useState(currentSettings.dayStart);
+  const [dayEnd, setDayEndLocal] = useState(currentSettings.dayEnd);
+  const [selectedDays, setSelectedDaysLocal] = useState(
+    currentSettings.selectedDays
+  );
+
+  useEffect(() => {
+    dispatch(setDayStart(dayStart));
+  }, [dayStart, dispatch]);
+
+  useEffect(() => {
+    dispatch(setDayEnd(dayEnd));
+  }, [dayEnd, dispatch]);
+
+  useEffect(() => {
+    dispatch(setSelectedDays(selectedDays));
+  }, [selectedDays, dispatch]);
 
   const handleDayToggle = (day) => {
     setSelectedDaysLocal({ ...selectedDays, [day]: !selectedDays[day] });
@@ -59,7 +72,7 @@ function SettingsPage({ setDayStart, setDayEnd, setSelectedDays }) {
           />
         </div>
       </div>
-      <h3 style={{paddingTop:"30px"}} >Active Days of the week</h3>
+      <h3 style={{ paddingTop: "30px" }}>Active Days of the week</h3>
       <div className="days-of-week">
         {Object.keys(selectedDays).map((day) => (
           <button
@@ -76,10 +89,4 @@ function SettingsPage({ setDayStart, setDayEnd, setSelectedDays }) {
   );
 }
 
-const mapDispatchToProps = {
-  setDayStart,
-  setDayEnd,
-  setSelectedDays,
-};
-
-export default connect(null, mapDispatchToProps)(SettingsPage);
+export default SettingsPage;
