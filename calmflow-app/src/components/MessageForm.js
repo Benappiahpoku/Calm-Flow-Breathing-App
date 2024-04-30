@@ -33,7 +33,6 @@ function MessageForm({
     Sat: false,
   });
 
-  
   const handleSubmit = (event) => {
     event.preventDefault();
     setMessage(message);
@@ -62,9 +61,9 @@ function MessageForm({
     } else {
       console.log("window.electron is not defined");
     }
-     toast.success(
-       `Congratulations! Your message "${message}" will be shown ${times} times during the day.`
-     );
+    toast.success(
+      `Congratulations! Your message "${message}" will be shown ${times} times during the day.`
+    );
   };
 
   const handleDayToggle = (day) => {
@@ -73,58 +72,7 @@ function MessageForm({
 
   return (
     <form onSubmit={handleSubmit} className="message-form">
-      <h2>Reminders Day Time Range</h2>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          marginBottom: "10px",
-        }}
-      >
-        <label>Your day starts at:</label>
-        <div style={{ width: "100px", marginLeft: "10px" }}>
-          <input
-            type="time"
-            value={dayStart}
-            onChange={(e) => setDayStartLocal(e.target.value)}
-            required
-            style={{ width: "100%" }}
-          />
-        </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          marginBottom: "10px",
-        }}
-      >
-        <label>Your day ends at:</label>
-        <div style={{ width: "100px", marginLeft: "15px" }}>
-          <input
-            type="time"
-            value={dayEnd}
-            onChange={(e) => setDayEndLocal(e.target.value)}
-            required
-            style={{ width: "100%" }}
-          />
-        </div>
-      </div>
-      <h2>Active Days of the week</h2>
-      <div className="days-of-week">
-        {Object.keys(selectedDays).map((day) => (
-          <button
-            key={day}
-            type="button"
-            className={`day-button ${selectedDays[day] ? "selected" : ""}`}
-            onClick={() => handleDayToggle(day)}
-          >
-            {day}
-          </button>
-        ))}
-      </div>
-      <div>
-        <h2>Set Reminder Messages</h2>
+      <div className="form-group">
         <label
           style={{
             display: "flex",
@@ -137,12 +85,22 @@ function MessageForm({
               display: "flex",
               alignItems: "flex-start",
               width: "200px",
+              paddingTop: "30px",
             }}
           >
-            Reminders per day:{" "}
-            <span style={{ marginLeft: "20px" }}>{times}</span>
+            <span
+              style={{
+                fontFamily: "sans-serif",
+                fontWeight: "bold",
+                paddingRight: "5px",
+                paddingBottom: "10px",
+              }}
+            >
+              Reminders per day:
+            </span>{" "}
+            <span>{times}</span>
           </div>
-          <div style={{ width: "100%" }}>
+          <div>
             <input
               type="range"
               min="1"
@@ -150,17 +108,27 @@ function MessageForm({
               value={times}
               onChange={(e) => setTimesLocal(e.target.value)}
               required
-              style={{ width: "80%", marginTop: "10px" }}
             />
           </div>
         </label>
-        <label style={{ display: "flex", alignItems: "flex-start" }}>
-          Messages:
+
+        <label>
+          <p
+            style={{
+              fontFamily: "sans-serif",
+              fontWeight: "bold",
+              paddingRight: "5px",
+              paddingTop: "30px",
+            }}
+          >
+            {" "}
+            Messages:
+          </p>
           <textarea
             value={message}
             onChange={(e) => setMessageLocal(e.target.value)}
             required
-            style={{ width: "100%", marginLeft: "10px", height: "100px" }}
+            style={{ width: "100%", height: "100px" }}
           />
         </label>
       </div>
