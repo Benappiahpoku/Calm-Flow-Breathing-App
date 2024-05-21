@@ -19,33 +19,38 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Router>
-          <header className="header-container">
-            <nav className="nav">
-              <Link to="/">
-                <FaHome style={{ fontSize: "2rem", color: "#346171" }} />
-              </Link>{" "}
-              <RxDividerVertical
-                style={{ fontSize: "2rem", color: "#346171" }}
-              />{" "}
-              <Link to="/settings">
-                <IoMdSettings style={{ fontSize: "2rem", color: "#346171" }} />
-              </Link>
-            </nav>
-            <div className="header">
-              <h1>Calm flow</h1>{" "}
-              <img src="icon.png" alt="calm flow logo" className="img" />{" "}
-            </div>
-            <p>Gentle random messages</p>
-          </header>
-          <main>
-            <Routes>
-              <Route
-                path="/"
-                element={<MessageForm onSubmit={handleFormSubmit} />}
-              />
-              <Route path="/settings" element={<SettingsPage />} />
-            </Routes>
-          </main>
+          <div className="container">
+            <header className="header-container">
+              <nav className="nav">
+                <Link to="/">
+                  <FaHome style={{ fontSize: "2rem", color: "#346171" }} />
+                </Link>{" "}
+                <RxDividerVertical
+                  style={{ fontSize: "2rem", color: "#346171" }}
+                />{" "}
+                <Link to="/settings">
+                  <IoMdSettings
+                    style={{ fontSize: "2rem", color: "#346171" }}
+                  />
+                </Link>
+              </nav>
+              <div className="header">
+                <h1>Calm flow</h1>{" "}
+                <img src="icon.png" alt="calm flow logo" className="img" />{" "}
+              </div>
+              <p>Gentle random messages</p>
+            </header>
+
+            <main>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<MessageForm onSubmit={handleFormSubmit} />}
+                />
+                <Route path="/settings" element={<SettingsPage />} />
+              </Routes>
+            </main>
+          </div>
         </Router>
       </PersistGate>
     </Provider>
