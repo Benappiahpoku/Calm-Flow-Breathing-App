@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Calm-Flow-Relaxing-App/static/css/main.8c7588a1.css",
+    "main.js": "/Calm-Flow-Relaxing-App/static/js/main.4b74026f.js",
+    "static/js/453.36eb53a1.chunk.js": "/Calm-Flow-Relaxing-App/static/js/453.36eb53a1.chunk.js",
+    "index.html": "/Calm-Flow-Relaxing-App/index.html",
+    "main.8c7588a1.css.map": "/Calm-Flow-Relaxing-App/static/css/main.8c7588a1.css.map",
+    "main.4b74026f.js.map": "/Calm-Flow-Relaxing-App/static/js/main.4b74026f.js.map",
+    "453.36eb53a1.chunk.js.map": "/Calm-Flow-Relaxing-App/static/js/453.36eb53a1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8c7588a1.css",
+    "static/js/main.4b74026f.js"
+  ]
+}
