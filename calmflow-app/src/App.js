@@ -58,3 +58,8 @@ function App() {
 }
 
 export default App;
+
+// TODO
+// I have remove this from package.json 
+//"homepage": "./",
+// if the electron app does not work, I will add it back
